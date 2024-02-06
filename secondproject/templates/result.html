@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<main class="container">
+  <div class="col-lg-12">
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <h1 class="fw-light">Game Results</h1>
+          
+
+
+          {% if res %}          
+          <div class="table-responsive">
+            <table class="table table-hover mt-5">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">User</th>
+                  <th scope="col">User Move</th>
+                  <th scope="col">Bot Move</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in res %}
+                  <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{i.player.name}}</td>
+                    <td>{{i.user_move}}</td>
+                    <td>{{i.bot_move}}</td>
+                    <td>
+                      {% if i.status == 'Win' %}
+                        <span class="badge bg-success">{{i.status}}</span>
+                      {% elif i.status == 'Lose' %}
+                        <span class="badge bg-danger">{{i.status}}</span>
+                      {% else %}
+                        <span class="badge bg-info">{{i.status}}</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+          <div class="alert alert-info mt-5" role="alert">
+            There are no results. Please start a game.
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+{% endblock body %}
